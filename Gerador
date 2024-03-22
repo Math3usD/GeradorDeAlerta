@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Alerta</title>
+</head>
+<body>
+    <h1>Formulário de Alerta</h1>
+    <form id="alertForm">
+        <label for="host">Host:</label><br>
+        <input type="text" id="host" name="host"><br>
+        
+        <label for="tipo">Tipo:</label><br>
+        <input type="text" id="tipo" name="tipo"><br>
+        
+        <label for="severidade">Severidade:</label><br>
+        <input type="text" id="severidade" name="severidade"><br>
+
+        <label for="problema">Problemas:</label><br>
+        <input type="text" id="problema" name="problema"><br>
+        
+        <label for="responsavel">Responsável:</label><br>
+        <select id="responsavel" name="responsavel">
+            <option value="Cliente">Cliente</option>
+            <option value="Seven">Seven</option>
+        </select><br><br>
+        
+        <button type="button" onclick="gerarAlerta()">Gerar Alerta</button>
+        <button type="button" onclick="copiarAlerta()">Copiar Alerta</button>
+    </form>
+
+    <div id="resultado"></div>
+
+    <script>
+        function gerarAlerta() {
+            var host = document.getElementById("host").value.trim();
+            var tipo = document.getElementById("tipo").value.trim();
+            var severidade = document.getElementById("severidade").value.trim();
+            var problema = document.getElementById("problema").value.trim();
+            var responsavel = document.getElementById("responsavel").value.trim();
+
+            var alerta = `⚠️ SEVEN ALERTA ⚠️<br>
+            Prezados,<br>
+            Segue alerta com base em nosso monitoramento:<br><br>
+            📌 Problemas: *${problema}*<br>
+            📌 Host: *${host}*<br>
+            📌 Tipo: *${tipo}*<br>
+            📌 Severidade: *${severidade}*<br>
+            📌 Responsável: *${responsavel}*`;
+
+            document.getElementById("resultado").innerHTML = alerta;
+        }
+
+        function copiarAlerta() {
+            var alerta = document.getElementById("resultado");
+            var range = document.createRange();
+            range.selectNode(alerta);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand("copy");
+            window.getSelection().removeAllRanges();
+            alert("Alerta copiado para a área de transferência!");
+        }
+    </script>
+</body>
+</html>
